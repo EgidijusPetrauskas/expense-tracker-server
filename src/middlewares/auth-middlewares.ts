@@ -17,6 +17,7 @@ export const authMiddleware: RequestHandler = (req, res, next) => {
 
     req.tokenData = {
       username: decodedInfo.username,
+      token: `Bearer ${token}`,
     };
 
     next();
