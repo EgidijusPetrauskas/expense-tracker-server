@@ -12,7 +12,7 @@ expensesRouter.use(authMiddleware, userMiddleware);
 
 expensesRouter.get('/', getExpenses);
 expensesRouter.post('/', createExpense);
-expensesRouter.put('/:clear-all', clearExpenses);
+expensesRouter.patch('/:clear-all', clearExpenses);
 expensesRouter.delete('/:id', deleteExpense);
 
 export default expensesRouter;

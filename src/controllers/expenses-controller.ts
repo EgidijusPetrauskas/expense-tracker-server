@@ -50,7 +50,7 @@ export const createExpense: RequestHandler<
 
 export const deleteExpense: RequestHandler<
   { id: string },
-  SingularExpenseResponse
+  { deleted_expense: Expense } | ErrorResponseBody
 > = async (req, res) => {
   const { id } = req.params;
   const { authUserDoc } = req;
@@ -78,7 +78,7 @@ export const deleteExpense: RequestHandler<
     await authUserDoc.save();
 
     res.status(200).json({
-      expense: createExpenseViewModel(expenseDoc),
+      deleted_expense: createExpenseViewModel(expenseDoc),
     });
   } catch (error) {
     res.status(400).json({
@@ -89,20 +89,26 @@ export const deleteExpense: RequestHandler<
 
 export const clearExpenses: RequestHandler<
   unknown,
-  { message: string }
+  { message: string } | ErrorResponseBody
 > = async (req, res) => {
   const { authUserDoc } = req;
 
-  if (authUserDoc === undefined) {
-    throw new Error('You have to log in!');
+  try {
+    if (authUserDoc === undefined) {
+      throw new Error('You have to log in!');
+    }
+
+    await ExpenseModel.deleteMany({ _id: { $in: authUserDoc.user_expenses } });
+
+    authUserDoc.user_expenses = [];
+    authUserDoc.save();
+
+    res.status(200).json({
+      message: 'Expenses succesfuly cleared!',
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: error instanceof Error ? error.message : 'Server error while deleting Expenses',
+    });
   }
-
-  await ExpenseModel.remove({});
-
-  authUserDoc.user_expenses = [];
-  authUserDoc.save();
-
-  res.status(200).json({
-    message: 'Expenses succesfuly cleared!',
-  });
 };
