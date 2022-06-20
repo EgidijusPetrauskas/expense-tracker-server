@@ -2,7 +2,7 @@
   * Expense Tracker Application BACK END SERVER
 
 ## Projeact Status
-  * This project is in development. User can create an account, reseach market stock iformation and create their own watchlist.
+  * This project is in development. User can create an account, follow their monthly expenses and analayse spending by percentage. Also reseach market stock iformation and create their own watchlist.
 
 ## System requirements
   * Node.js
