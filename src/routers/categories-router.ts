@@ -1,8 +1,14 @@
 import { Router } from 'express';
 
-import { authMiddleware, userMiddleware } from '../middlewares/auth-middlewares';
 import {
- createCategory, deleteCategory, getCategory, getCategories,
+  authMiddleware,
+  userMiddleware,
+} from '../middlewares/auth-middlewares';
+import {
+  createCategory,
+  deleteCategory,
+  getCategory,
+  getCategories,
 } from '../controllers/categories-controller';
 
 const categoriesRouter = Router();

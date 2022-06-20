@@ -1,7 +1,8 @@
 import { RequestHandler } from 'express';
 import { Error } from 'mongoose';
-import createUserViewModel, { UserViewModel } from '../view-model-creators/create-user-view-model';
+
 import UserModel, { UserDetails } from '../models/user-model';
+import createUserViewModel, { UserViewModel } from '../view-model-creators/create-user-view-model';
 
 export const update: RequestHandler<
   unknown,

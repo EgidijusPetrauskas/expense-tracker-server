@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+
 import UserModel from '../models/user-model';
 
 type WatchlistItemResponse = { watchlistItem: string } | ErrorResponseBody;

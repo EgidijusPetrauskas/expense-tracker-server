@@ -2,6 +2,7 @@ import { Error } from 'mongoose';
 import { RequestHandler } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import config from '../config';
 import UserModel, { UserProps } from '../models/user-model';
 import createUserViewModel, { UserViewModel } from '../view-model-creators/create-user-view-model';

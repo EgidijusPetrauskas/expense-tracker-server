@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
+
 import config from '../config';
 import UserModel from '../models/user-model';
 

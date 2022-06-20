@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+
 import CategoryModel from '../models/category-model';
 import createCategoryViewModel, { CategoryViewModel } from '../view-model-creators/create-category-view-model';
 
