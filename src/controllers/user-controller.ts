@@ -41,3 +41,40 @@ export const update: RequestHandler<
     });
   }
 };
+
+export const remove: RequestHandler<
+  { id: string },
+  { deleted_username: string } | ErrorResponseBody
+> = async (req, res) => {
+  const { id } = req.params;
+  const { authUserDoc } = req;
+
+  try {
+    if (authUserDoc === undefined) {
+      throw new Error('You have to log in!');
+    }
+
+    const deletedUser = await UserModel.findByIdAndDelete(id);
+
+    if (deletedUser === null) {
+      throw new Error(`User: ${authUserDoc.username} cant be found!`);
+    }
+
+    res.status(201).json({
+      deleted_username: deletedUser.username,
+    });
+  } catch (error) {
+    let message = 'Server error while deleting user!';
+
+    if (error instanceof Error.ValidationError) {
+      if (error.errors.username) {
+        message = 'Username already exists';
+      }
+    } else if (error instanceof Error) {
+      message = error.message;
+    }
+    res.status(400).json({
+      error: message,
+    });
+  }
+};
